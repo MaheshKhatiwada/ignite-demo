@@ -8,7 +8,7 @@ import React from "react"
 import { useColorScheme } from "react-native"
 import { NavigationContainer, DefaultTheme, DarkTheme } from "@react-navigation/native"
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
-import { WelcomeScreen, DemoScreen, DemoListScreen,LiveKycScreen } from "../screens"
+import { WelcomeScreen, DemoScreen, DemoListScreen,LiveKycScreen,FixedMaturityScreen } from "../screens"
 import { navigationRef, useBackButtonHandler } from "./navigation-utilities"
 
 /**
@@ -28,6 +28,7 @@ export type NavigatorParamList = {
   demo: undefined
   demoList: undefined
   liveKyc:undefined
+  fixedMaturity:undefined
   // 🔥 Your screens go here
 }
 
@@ -46,6 +47,8 @@ const AppStack = () => {
       <Stack.Screen name="demo" component={DemoScreen} />
       <Stack.Screen name="demoList" component={DemoListScreen} />
       <Stack.Screen name="liveKyc" component={LiveKycScreen} />
+      <Stack.Screen name="fixedMaturity" component={FixedMaturityScreen} />
+      
       
       {/** 🔥 Your screens go here */}
     </Stack.Navigator>

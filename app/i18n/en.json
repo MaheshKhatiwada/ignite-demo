@@ -36,5 +36,9 @@
   "storybook": {
     "placeholder": "Placeholder",
     "field": "Field"
+  },
+  "fixedMaturityScreen":{
+    "title":"Open Fixed Maturity P2P Plan",
+    "buttonTitle":"Save and proceed"
   }
 }

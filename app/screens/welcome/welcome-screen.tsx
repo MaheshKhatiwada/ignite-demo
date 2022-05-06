@@ -90,6 +90,8 @@ export const WelcomeScreen: FC<StackScreenProps<NavigatorParamList, "welcome">> 
   ({ navigation }) => {
     const nextScreen = () => navigation.navigate("demo")
     const kycScreen = () => navigation.navigate("liveKyc")
+    const fixedMaturityScreen = () => navigation.navigate("fixedMaturity")
+    
 
     return (
       <View testID="WelcomeScreen" style={FULL}>
@@ -124,12 +126,20 @@ export const WelcomeScreen: FC<StackScreenProps<NavigatorParamList, "welcome">> 
             
           </View>
         </SafeAreaView>
-        <Button
+        {/* <Button
               testID="next-screen-button"
               style={CONTINUE}
               textStyle={CONTINUE_TEXT}
               tx="welcomeScreen.continue"
               onPress={kycScreen}
+            /> */}
+            
+            <Button
+              testID="next-screen-button"
+              style={CONTINUE}
+              textStyle={CONTINUE_TEXT}
+              tx="welcomeScreen.continue"
+              onPress={fixedMaturityScreen}
             />
       </View>
     )

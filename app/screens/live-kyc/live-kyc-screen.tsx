@@ -77,7 +77,7 @@ export const LiveKycScreen: FC<StackScreenProps<NavigatorParamList, "liveKyc">> 
   }
   
   const hyperVergeFaceCapture=()=>{
-    try {
+   
       const customHyperVergeEndpoint = 'instamoney/v3/live-kyc/pan';
       const hyperVergeLogger = 'hyperverge-request-logger';
       // const { makePostCall,uploadLoggger, app: { user_id } } = this.props.screenProps;
@@ -100,7 +100,7 @@ export const LiveKycScreen: FC<StackScreenProps<NavigatorParamList, "liveKyc">> 
       RNHVFaceCapture.setLivenessAPIParameters(JSON.stringify(livenessParams));
       RNHVFaceCapture.start((faceError, faceResult) => {
           if(faceError != null ){
-            console.log('errror')
+            console.log('errrorrrrrrrrrrrrrrrr',faceError)
               // this.setState({showLoader:false});
               // this.setState({hyperVergeTrials:this.state.hyperVergeTrials+1});
               // this.showHyperVergeError(faceError['errorMessage']);
@@ -140,33 +140,55 @@ export const LiveKycScreen: FC<StackScreenProps<NavigatorParamList, "liveKyc">> 
               // });
           }
       });
-      
-    } catch (error) {
-      console.log("error",error)
-    }
+
   }
   const onProceedPressOCR = () => {
     //  Set Optional Parameters
-RNHVDocsCapture.setDocCaptureDescription("Place your ID inside the box");
-RNHVDocsCapture.setOCRAPIDetails("https://vnm-docs.hyperverge.co/v2/nationalID", RNHyperSnapParams.DocumentFront);
+// RNHVDocsCapture.setDocCaptureDescription("Place your ID inside the box");
+// RNHVDocsCapture.setOCRAPIDetails("https://vnm-docs.hyperverge.co/v2/nationalID", RNHyperSnapParams.DocumentFront);
 
-// Create Document Capture Callback
-var documentCaptureClosure = (error, result) => {
-  if(error != null) {
-    // Handle error
-  } else {
-    // Handle result
-    const docImageUri = result["imageUri"] //Document Image
-    console.log("imageUri "  +  result["imageUri"])
-    console.log("action "  +  result["action"]) //Action = "pass"/"fail"/"manualReview"
-    console.log("apiResult "  +  JSON.stringify(result["apiResult"])) //Liveness API Result
-    console.log("headers "  +  JSON.stringify(result["apiHeaders"])) //Liveness API Headers
-  }
+// // Create Document Capture Callback
+// const documentCaptureClosure = (error, result) => {
+//   if(error != null) {
+//     // Handle error
+//     console.log("error")
+//   } else {
+//     console.log("success")
+//     // Handle result
+//     const docImageUri = result["imageUri"] // Document Image
+//     console.log("imageUri "  +  result["imageUri"])
+//     console.log("action "  +  result["action"]) // Action = "pass"/"fail"/"manualReview"
+//     console.log("apiResult "  +  JSON.stringify(result["apiResult"])) // Liveness API Result
+//     console.log("headers "  +  JSON.stringify(result["apiHeaders"])) // Liveness API Headers
+//   }
+// }
+
+
+RNHVDocsCapture.setDocCaptureTitle("Upload Pan Card");
+RNHVDocsCapture.setDocCaptureDescription("Take a clear photo of your pan card. Make sure it doesn't have any glare or flash reflection.");
+RNHVDocsCapture.setDocCaptureSubText(" ");
+RNHVDocsCapture.setDocReviewTitle("Review your pan");
+RNHVDocsCapture.setDocReviewDescription("If your pan is cropped or blurred or has glare/flash, you should Retake it.");
+RNHVDocsCapture.setDocumentType("Document.CARD");
+RNHVDocsCapture.setShouldShowReviewScreen(true);
+const closure = (docScanError, docScanResult) => {
+    if(docScanError != null){
+        console.log("error doc scan",docScanError)
+    }
+    else{
+        console.log("success",docScanResult)
+    }
 }
-
+RNHVDocsCapture.start(closure);
+}
 // Start Document Capture
-RNHVDocsCapture.start(documentCaptureClosure)
-  }
+// try {
+  
+//   RNHVDocsCapture.start(documentCaptureClosure)
+// } catch (error) {
+//   console.log("error",error)
+// }
+  
   return (
     <Screen style={ROOT} preset="scroll">
       <Text style ={TEXT}preset="header"  text="liveKyc" />
@@ -178,7 +200,6 @@ RNHVDocsCapture.start(documentCaptureClosure)
         />
          <Button 
          testID="next-screen-button"
-         
          tx="welcomeScreen.continue"
          onPress={onProceedPressOCR}
         />
